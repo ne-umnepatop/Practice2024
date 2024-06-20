@@ -1,10 +1,9 @@
 import gymnasium as gym
 import numpy as np
 
-# Создание среды
 env = gym.make('InvertedPendulum-v4')
 
-# Функция для сбора данных
+
 def collect_expert_data(env, num_episodes=100, max_steps=1000):
     states = []
     actions = []
@@ -16,7 +15,7 @@ def collect_expert_data(env, num_episodes=100, max_steps=1000):
         episode_actions = []
 
         for step in range(max_steps):
-            action = env.action_space.sample()  # Здесь вместо random action можно использовать обученного агента
+            action = env.action_space.sample()  # придумать агента
             next_state, reward, done, _, _ = env.step(action)
             episode_states.append(state)
             episode_actions.append(action)
@@ -30,9 +29,7 @@ def collect_expert_data(env, num_episodes=100, max_steps=1000):
 
     return np.array(states), np.array(actions)
 
-# Сбор данных
 states, actions = collect_expert_data(env, num_episodes=100, max_steps=1000)
 
-# Сохранение данных
-np.save('inverted_pendulum_states.npy', states)
-np.save('inverted_pendulum_actions.npy', actions)
+np.save('inverted_pendulum_states.csv', states)
+np.save('inverted_pendulum_actions.csv', actions)
