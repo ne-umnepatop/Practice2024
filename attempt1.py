@@ -31,5 +31,5 @@ def collect_expert_data(env, num_episodes=100, max_steps=1000):
 
 states, actions = collect_expert_data(env, num_episodes=100, max_steps=1000)
 
-np.save('inverted_pendulum_states.csv', states)
-np.save('inverted_pendulum_actions.csv', actions)
+np.savetxt('inverted_pendulum_states.csv', states, delimiter=',')
+np.savetxt('inverted_pendulum_actions.csv', actions, delimiter=',')
