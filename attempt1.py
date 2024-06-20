@@ -29,7 +29,6 @@ def collect_expert_data(env, episodes=100, steps=1000):
 
     return np.array(states), np.array(actions)
 
-out_states, out_actions = collect_expert_data(env, episodes=100, steps=1000)
+out = np.column_stack(collect_expert_data(env, episodes=100, steps=1000))
 
-np.savetxt('inverted_pendulum_states.csv', out_states, delimiter=',')
-np.savetxt('inverted_pendulum_actions.csv', out_actions, delimiter=',')
+np.savetxt('inverted_pendulum.csv', out, delimiter=',')
