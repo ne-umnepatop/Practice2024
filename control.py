@@ -47,6 +47,9 @@ def pid(state):
     if ang>aim and ang_vel>0:
         vel_err = -1*ang_vel
     else: vel_err = ang_vel
-    
-    return p*err+d*vel_err
+
+    u=p*err+d*vel_err
+    if u<-3 or u>3:
+        u=0
+    return u
     
