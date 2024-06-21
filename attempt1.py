@@ -17,7 +17,7 @@ def collect_expert_data(env, episodes=100, steps=1000):
 
         for _ in range(steps):
             # action = env.action_space.sample()
-            action = pid(state)
+            # action = pid(state)
             action = [0]
             next_state, _, done, _, _ = env.step(action)
             episode_states.append(state)
@@ -32,6 +32,5 @@ def collect_expert_data(env, episodes=100, steps=1000):
 
     return np.array(states), np.array(actions)
 
-out = np.column_stack(collect_expert_data(env, episodes=100, steps=1000))
-
+out = np.transpose(np.column_stack(collect_expert_data(env, episodes=100, steps=1000)))
 np.savetxt('inverted_pendulum.csv', out, delimiter=',')
