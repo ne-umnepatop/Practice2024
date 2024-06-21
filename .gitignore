@@ -1,4 +1,5 @@
 *.npy
 *.csv
+*.png
 env/
 animate1.py
