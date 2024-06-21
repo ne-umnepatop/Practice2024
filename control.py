@@ -1,6 +1,6 @@
 import gymnasium as gym
 import numpy as np
-from scipy.linalg import solve_continuous_are, inv
+# from scipy.linalg import solve_continuous_are, inv
 
 env = gym.make('InvertedPendulum-v4')
 
@@ -14,25 +14,25 @@ B = np.array([[0], [1/inertia]])
 
 
 
-def lqr(state, Q=np.eye(2), R=1.0):
-    """
-    Линейно-квадратичный регулятор (LQR) для управления перевёрнутым маятником.
+# def lqr(state, Q=np.eye(2), R=1.0):
+#     """
+#     Линейно-квадратичный регулятор (LQR) для управления перевёрнутым маятником.
 
-    Параметры:
-    state (numpy.ndarray): текущее состояние маятника [позиция, угол, линейная скорость, угловая скорость]
-    Q (numpy.ndarray): матрица весов состояния, по умолчанию единичная матрица
-    R (float): весовой коэффициент управляющего воздействия
+#     Параметры:
+#     state (numpy.ndarray): текущее состояние маятника [позиция, угол, линейная скорость, угловая скорость]
+#     Q (numpy.ndarray): матрица весов состояния, по умолчанию единичная матрица
+#     R (float): весовой коэффициент управляющего воздействия
 
-    Возвращает:
-    numpy.ndarray: оптимальное управляющее воздействие
-    """
-    angle, angular_velocity = state[1], state[3]
-    state_vector = np.array([angle, angular_velocity])
+#     Возвращает:
+#     numpy.ndarray: оптимальное управляющее воздействие
+#     """
+#     angle, angular_velocity = state[1], state[3]
+#     state_vector = np.array([angle, angular_velocity])
 
-    P = solve_continuous_are(A, B, Q, R)
-    K = inv(R) @ B.T @ P
-    u = -K @ state_vector
-    return np.clip(u, -3.0, 3.0)
+#     P = solve_continuous_are(A, B, Q, R)
+#     K = inv(R) @ B.T @ P
+#     u = -K @ state_vector
+#     return np.clip(u, -3.0, 3.0)
 
 def pid(state):
     p = 1
@@ -51,5 +51,5 @@ def pid(state):
     u=p*err+d*vel_err
     if u<-3 or u>3:
         u=0
-    return [u]
+    return [u/10]
     

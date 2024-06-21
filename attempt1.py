@@ -1,6 +1,6 @@
 import gymnasium as gym
 import numpy as np
-from control import lqr, pid
+from control import pid
 
 env = gym.make('InvertedPendulum-v4')
 
@@ -17,8 +17,8 @@ def collect_expert_data(env, episodes=100, steps=1000):
 
         for _ in range(steps):
             # action = env.action_space.sample()
-            # action = pid(state)
-            action = [0]
+            action = pid(state)
+            # action = [0]
             next_state, _, done, _, _ = env.step(action)
             episode_states.append(state)
             episode_actions.append(action)
