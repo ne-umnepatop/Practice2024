@@ -27,6 +27,7 @@ ENV PATH="/app/env/bin:$PATH"
 RUN pip install --no-cache-dir \
     numpy \
     matplotlib \
+    scipy \
     wheel \
     setuptools \
     gymnasium \
