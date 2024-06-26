@@ -3,6 +3,9 @@ from stable_baselines3 import PPO
 
 
 def test_agent(agent, env, episodes=5):
+    """
+    Получение баллов за прохождение моделью среды
+    """
     for episode in range(episodes):
         obs, _ = env.reset()
         total_reward = 0
