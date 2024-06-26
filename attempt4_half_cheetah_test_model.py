@@ -23,16 +23,16 @@ def test_agent(agent, env, episodes=5):
             env.render()
         print(f"Episode {episode + 1}: Total Reward = {total_reward}")
 
-def demo_model(name_of_model):
+def demo_model(ENVIRONMENT, NAME_OF_MODEL, EPISODES = 5):
     """
     Демонстрация повдения обученной модели
     """
-    env = gym.make('HalfCheetah-v4', render_mode='human')
-    model = PPO.load(name_of_model, env=env)
+    env = gym.make(ENVIRONMENT, render_mode='human')
+    model = PPO.load(NAME_OF_MODEL, env=env)
     print("Testing PPO Agent")
-    test_agent(model, env)
+    test_agent(model, env, EPISODES)
     env.close()
 
 if __name__=='__main__':
 
-    demo_model('half_cheetah_model_PC')
+    demo_model('HalfCheetah-v4', 'half_cheetah_model_PC')
