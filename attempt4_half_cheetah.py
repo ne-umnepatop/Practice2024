@@ -31,13 +31,13 @@ model.save('half_cheetah_model')
 # model = PPO.load('half_cheetah_model', env=env)        
 env.close()
 
-env = gym.make('HalfCheetah-v4', render_mode='rgb_array')
-# Тестирование случайного агента
-print("Testing Random Agent")
-test_agent(None, env)
-env.close()
+# env = gym.make('HalfCheetah-v4', render_mode='human')
+# # Тестирование случайного агента
+# print("Testing Random Agent")
+# test_agent(None, env)
+# env.close()
 
-env = gym.make('HalfCheetah-v4', render_mode='rgb_array')
+env = gym.make('HalfCheetah-v4', render_mode='human')
 # Тестирование обученного агента
 print("Testing PPO Agent")
 test_agent(model, env)
