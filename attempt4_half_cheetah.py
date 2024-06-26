@@ -1,6 +1,9 @@
 import gymnasium as gym
 from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
+# import os
+
+# os.environ["GYMNASIUM_RENDER_MODE"] = "pygame"
 
 # Iterations = int(1e6)
 Iterations = 10**3
