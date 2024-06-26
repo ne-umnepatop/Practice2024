@@ -3,10 +3,10 @@ import gymnasium as gym
 from stable_baselines3 import PPO
 import numpy as np
 
-Iterations = 10**5
+ITERATIONS = 10**3
 env = gym.make('CartPole-v1')
 model = PPO('MlpPolicy', env, verbose=1)
-model.learn(total_timesteps=Iterations)
+model.learn(total_timesteps=ITERATIONS)
 model.save("ppo_cartpole")
 
 
