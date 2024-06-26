@@ -2,14 +2,14 @@ import gymnasium as gym
 from stable_baselines3 import PPO
 
 
-def create_model(ENVIRONMENT, ITERATIONS, NAME_OF_MODEL):
+def create_model(environment, iterations, name_of_model):
     """
     Обучение и сохранение модели
     """
-    env = gym.make(ENVIRONMENT)
+    env = gym.make(environment)
     model = PPO('MlpPolicy', env, verbose=1)
-    model.learn(total_timesteps=ITERATIONS)
-    model.save(NAME_OF_MODEL)
+    model.learn(total_timesteps=iterations)
+    model.save(name_of_model)
     env.close()
 
 
