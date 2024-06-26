@@ -18,7 +18,7 @@ def test_agent(agent, env, episodes=5):
                 action = env.action_space.sample()
             result = env.step(action)
             # print(result)
-            obs, reward, terminated, truncated, info = result
+            obs, reward, terminated, truncated, _ = result
             total_reward += reward
             env.render()
         print(f"Episode {episode + 1}: Total Reward = {total_reward}")
