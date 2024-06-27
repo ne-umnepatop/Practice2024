@@ -17,12 +17,12 @@ def test_agent(agent, env, episodes=5):
             else:
                 action = env.action_space.sample()
             result = env.step(action)
-            # print(result)
             obs, reward, terminated, truncated, _ = result
             total_reward += reward
             env.render()
         print(f"Episode {episode + 1}: Total Reward = {total_reward}")
 
+        
 def demo_model(environment, name_of_model, episodes = 5):
     """
     Демонстрация повдения обученной модели
