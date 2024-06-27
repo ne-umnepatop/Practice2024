@@ -6,10 +6,10 @@ from stable_baselines3 import PPO
 if __name__=='__main__':
 
     ITERATIONS = 10**4
-    DEMO_EPISODES = 5
+    DEMO_EPISODES = 8
 
     env = gym.make('HalfCheetah-v4')
-    model = PPO.load('half_cheetah_model', env=env)
+    model = PPO.load('half_cheetah_model_10^5', env=env)
 
     demo_states = []
     demo_actions = []

@@ -45,9 +45,9 @@ class MLP(nn.Module):
 
 OBS_SIZE = 17
 ACTION_SIZE = 6
-NERONS = 256
+NERONS = 401
 EPISODES = 10**4
-LERN_RATE = 0.001
+LERN_RATE = 0.0001
 
 if __name__=='__main__':
 
