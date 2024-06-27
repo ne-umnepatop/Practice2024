@@ -53,6 +53,6 @@ def demo_model(environment, name_of_model, episodes = 5, mod='ppo'):
 if __name__=='__main__':
 
     # demo_model('HalfCheetah-v4', 'half_cheetah_model{250000}', mod='ppo')
-    # demo_model('HalfCheetah-v4', 'half_cheetah_model_10^6', mod='ppo')
+    demo_model('HalfCheetah-v4', 'half_cheetah_model_10^6', mod='ppo')
     # demo_model('HalfCheetah-v4', 'half_cheetah_model_PC', mod='ppo')
     demo_model('HalfCheetah-v4', 'half_cheetah_im.pth', mod='imit')
