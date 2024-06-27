@@ -47,7 +47,7 @@ class MLP(nn.Module):
 OBS_SIZE = 17
 ACTION_SIZE = 6
 NERONS = 256
-ITERATIONS = 10**4
+ITERATIONS = 10**3
 LERN_RATE = 0.001
 
 if __name__=='__main__':
@@ -79,7 +79,7 @@ if __name__=='__main__':
     torch.save(model.state_dict(), 'half_cheetah_im.pt')
 
     plt.figure(figsize=(10, 6))
-    plt.plot(range(ITERATIONS), losses)
+    plt.plot(range(len(losses)), losses)
     plt.title('Loss / Iteration')
     plt.xlabel('Iteration')
     plt.ylabel('Loss')

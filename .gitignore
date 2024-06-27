@@ -1,6 +1,7 @@
 *.npy
 inverted_pendulum.csv
 *.png
+*.docx*
 env/
 _*_/
 half_cheetah_model.zip
