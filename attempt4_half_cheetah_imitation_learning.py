@@ -7,9 +7,9 @@ from torch.utils.data import Dataset, DataLoader
 
 class HalfCheetahDataset(Dataset):
     """Dataset"""
-    def __init__(self, states, actions):
-        self.states = states
-        self.actions = actions
+    def __init__(self, input_states, input_actions):
+        self.states = input_states
+        self.actions = input_actions
 
     def __len__(self):
         return len(self.states)
@@ -20,14 +20,21 @@ class HalfCheetahDataset(Dataset):
 
 class MLP(nn.Module):
     """Многослойный перцептрон"""
-    def __init__(self, input_size, ACTION_SIZE, NERONS=64):
+    def __init__(self, input_size, action_size, neurons=64):
         super(MLP, self).__init__()
-        self.fc1 = nn.Linear(input_size, NERONS)
-        self.fc2 = nn.Linear(NERONS, NERONS)
-        self.fc3 = nn.Linear(NERONS, ACTION_SIZE)
+        self.fc1 = nn.Linear(input_size, neurons)
+        self.fc2 = nn.Linear(neurons, neurons)
+        self.fc3 = nn.Linear(neurons, action_size)
         self.activation = nn.ReLU()
 
     def forward(self, x):
+        """
+        Forward pass through the MLP.
+        Args:
+            x (torch.Tensor): Input tensor of shape (batch_size, input_size).
+        Returns:
+            torch.Tensor: Output tensor of shape (batch_size, action_size).
+        """
         x = self.fc1(x)
         x = self.activation(x)
         x = self.fc2(x)
@@ -45,8 +52,8 @@ LERN_RATE = 0.001
 if __name__=='__main__':
 
     data = pd.read_csv('HalfCheetah.csv')
-    demo_states = data.iloc[:, :OBS_SIZE].values
-    demo_actions = data.iloc[:, OBS_SIZE:OBS_SIZE+ACTION_SIZE].values
+    demo_states = data.iloc[:, :OBS_SIZE].values.astype(np.float32)
+    demo_actions = data.iloc[:, OBS_SIZE:OBS_SIZE+ACTION_SIZE].values.astype(np.float32)
 
     dataset = HalfCheetahDataset(demo_states, demo_actions)
     dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
@@ -57,6 +64,7 @@ if __name__=='__main__':
 
     for i in range(EPISODES):
         for states, actions in dataloader:
+            states = states.float()
             optimizer.zero_grad()
             outputs = model(states)
             loss = criterion(outputs, actions)
@@ -64,6 +72,6 @@ if __name__=='__main__':
             optimizer.step()
 
         if (i+1) % 10 == 0:
-            print(f'Epoch [{i+1}/{EPISODES}], Loss: {loss.item():.4f}')
+            print(f'Epoch {i+1}/{EPISODES}, Loss: {loss.item():.4f}')
 
     torch.save(model.state_dict(), 'half_cheetah_im.pth')
