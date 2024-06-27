@@ -1,7 +1,7 @@
 import gymnasium as gym
 import torch
 from stable_baselines3 import PPO
-from attempt4_half_cheetah_imitation_learning import MLP, OBS_SIZE, ACTION_SIZE
+from imitation_learning import MLP, OBS_SIZE, ACTION_SIZE, NERONS
 
 
 def test_agent(agent, env, episodes=5, mod='ppo'):
@@ -42,7 +42,7 @@ def demo_model(environment, name_of_model, episodes = 5, mod='ppo'):
         model = PPO.load(name_of_model, env=env)
         print("Testing PPO Agent")
     elif mod=='imit':
-        model = MLP(OBS_SIZE, ACTION_SIZE)
+        model = MLP(OBS_SIZE, ACTION_SIZE, NERONS)
         model.load_state_dict(torch.load(name_of_model))
         model.eval()
         print("Testing Imitation Model")

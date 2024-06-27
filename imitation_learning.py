@@ -45,8 +45,8 @@ class MLP(nn.Module):
 
 OBS_SIZE = 17
 ACTION_SIZE = 6
-NERONS = 64
-EPISODES = 100
+NERONS = 256
+EPISODES = 10**4
 LERN_RATE = 0.001
 
 if __name__=='__main__':
@@ -54,10 +54,9 @@ if __name__=='__main__':
     data = pd.read_csv('HalfCheetah.csv')
     demo_states = data.iloc[:, :OBS_SIZE].values.astype(np.float32)
     demo_actions = data.iloc[:, OBS_SIZE:OBS_SIZE+ACTION_SIZE].values.astype(np.float32)
-    print(data)
 
     dataset = DemoDataset(demo_states, demo_actions)
-    dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=NERONS, shuffle=True)
 
     model = MLP(OBS_SIZE, ACTION_SIZE, NERONS)
     optimizer = torch.optim.Adam(model.parameters(), lr=LERN_RATE)
@@ -72,7 +71,7 @@ if __name__=='__main__':
             loss.backward()
             optimizer.step()
 
-        if (i+1) % 10 == 0:
+        if (i+1) % 1000 == 0:
             print(f'Epoch {i+1}/{EPISODES}, Loss: {loss.item():.4f}')
 
     torch.save(model.state_dict(), 'half_cheetah_im.pth')
