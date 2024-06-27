@@ -3,6 +3,7 @@ import pandas as pd
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
+import matplotlib.pyplot as plt
 
 
 class DemoDataset(Dataset):
@@ -45,9 +46,9 @@ class MLP(nn.Module):
 
 OBS_SIZE = 17
 ACTION_SIZE = 6
-NERONS = 401
-EPISODES = 10**4
-LERN_RATE = 0.01
+NERONS = 256
+ITERATIONS = 10**4
+LERN_RATE = 0.001
 
 if __name__=='__main__':
 
@@ -62,7 +63,8 @@ if __name__=='__main__':
     optimizer = torch.optim.Adam(model.parameters(), lr=LERN_RATE)
     criterion = nn.MSELoss()
 
-    for i in range(EPISODES):
+    losses = list()
+    for i in range(ITERATIONS):
         for states, actions in dataloader:
             states = states.float()
             optimizer.zero_grad()
@@ -70,8 +72,17 @@ if __name__=='__main__':
             loss = criterion(outputs, actions)
             loss.backward()
             optimizer.step()
-
+            losses.append(loss.item())
         if (i+1) % 1000 == 0:
-            print(f'Epoch {i+1}/{EPISODES}, Loss: {loss.item():.4f}')
+            print(f'Epoch {i+1}/{ITERATIONS}, Loss: {loss.item():.4f}')
 
-    torch.save(model.state_dict(), 'half_cheetah_im.pth')
+    torch.save(model.state_dict(), 'half_cheetah_im.pt')
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(range(ITERATIONS), losses)
+    plt.title('Loss / Iteration')
+    plt.xlabel('Iteration')
+    plt.ylabel('Loss')
+    plt.savefig('loss_on_epoh.png')
+
+    torch.save(model.state_dict(), 'half_cheetah_im.pt')

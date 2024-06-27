@@ -5,7 +5,6 @@ from stable_baselines3 import PPO
 
 if __name__=='__main__':
 
-    ITERATIONS = 10**4
     DEMO_EPISODES = 8
 
     env = gym.make('HalfCheetah-v4')
