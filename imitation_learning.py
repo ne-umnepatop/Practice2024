@@ -47,7 +47,7 @@ OBS_SIZE = 17
 ACTION_SIZE = 6
 NERONS = 401
 EPISODES = 10**4
-LERN_RATE = 0.0001
+LERN_RATE = 0.01
 
 if __name__=='__main__':
 

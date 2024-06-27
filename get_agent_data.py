@@ -9,7 +9,7 @@ if __name__=='__main__':
     DEMO_EPISODES = 8
 
     env = gym.make('HalfCheetah-v4')
-    model = PPO.load('half_cheetah_model_10^5', env=env)
+    model = PPO.load('half_cheetah_model_10^6', env=env)
 
     demo_states = []
     demo_actions = []
