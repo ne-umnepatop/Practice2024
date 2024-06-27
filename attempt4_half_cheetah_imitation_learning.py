@@ -5,7 +5,7 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
 
-class HalfCheetahDataset(Dataset):
+class DemoDataset(Dataset):
     """Dataset"""
     def __init__(self, input_states, input_actions):
         self.states = input_states
@@ -43,7 +43,7 @@ class MLP(nn.Module):
         return x
 
 
-OBS_SIZE = 16
+OBS_SIZE = 17
 ACTION_SIZE = 6
 NERONS = 64
 EPISODES = 100
@@ -54,8 +54,9 @@ if __name__=='__main__':
     data = pd.read_csv('HalfCheetah.csv')
     demo_states = data.iloc[:, :OBS_SIZE].values.astype(np.float32)
     demo_actions = data.iloc[:, OBS_SIZE:OBS_SIZE+ACTION_SIZE].values.astype(np.float32)
+    print(data)
 
-    dataset = HalfCheetahDataset(demo_states, demo_actions)
+    dataset = DemoDataset(demo_states, demo_actions)
     dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
 
     model = MLP(OBS_SIZE, ACTION_SIZE, NERONS)
