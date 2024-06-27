@@ -45,12 +45,12 @@ LERN_RATE = 0.001
 if __name__=='__main__':
 
     data = pd.read_csv('HalfCheetah.csv')
-    demo_states = data.iloc[:OBS_SIZE]
-    demo_actions = data.iloc[OBS_SIZE:]
+    demo_states = data.iloc[:, :OBS_SIZE].values
+    demo_actions = data.iloc[:, OBS_SIZE:OBS_SIZE+ACTION_SIZE].values
 
     dataset = HalfCheetahDataset(demo_states, demo_actions)
     dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
-    
+
     model = MLP(OBS_SIZE, ACTION_SIZE, NERONS)
     optimizer = torch.optim.Adam(model.parameters(), lr=LERN_RATE)
     criterion = nn.MSELoss()
